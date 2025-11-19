@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  service_a:
+    build: ./service_a
+    container_name: desafio4_service_a
+    # Porta interna 5000, não exposta externamente
+    expose:
+      - "5000"
+
+  service_b:
+    build: ./service_b
+    container_name: desafio4_service_b
+    ports:
+      # Expõe a porta do serviço B para teste
+      - "5001:5001"
+    depends_on:
+      - service_a
