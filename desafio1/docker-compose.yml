@@ -1,0 +1,31 @@
+version: '3.8'
+
+# Rede customizada conforme requisito
+networks:
+  custom_network:
+    name: desafio1_network
+
+services:
+  server:
+    build: ./server
+    container_name: desafio1_server
+    ports:
+      # Expor a porta 8080 para acesso externo (opcional, mas útil para testes)
+      - "8080:8080"
+    networks:
+      - custom_network
+
+  client:
+    build: ./client
+    container_name: desafio1_client
+    # O cliente depende do servidor para iniciar a comunicação
+    depends_on:
+      - server
+    networks:
+      - custom_network
+    # Garante que o log do cliente seja visível para demonstrar a comunicação
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
