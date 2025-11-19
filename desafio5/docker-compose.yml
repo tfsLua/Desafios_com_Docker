@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: ./gateway
+    container_name: desafio5_gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - service_1
+      - service_2
+
+  service_1:
+    build: ./service_1
+    container_name: desafio5_service_1
+    expose:
+      - "5001"
+
+  service_2:
+    build: ./service_2
+    container_name: desafio5_service_2
+    expose:
+      - "5002"
